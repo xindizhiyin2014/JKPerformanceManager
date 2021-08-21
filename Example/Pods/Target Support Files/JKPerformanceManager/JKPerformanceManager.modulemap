@@ -1,0 +1,6 @@
+framework module JKPerformanceManager {
+  umbrella header "JKPerformanceManager-umbrella.h"
+
+  export *
+  module * { export * }
+}
