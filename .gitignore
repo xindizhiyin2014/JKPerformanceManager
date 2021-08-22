@@ -41,3 +41,14 @@ Example/Podfile.lock
 Example/Pods/Kiwi/Classes/Config/KWAllTestsSuite.m
 Example/Pods/Kiwi/Classes/Config/KWSuiteConfigurationBase.h
 Example/Pods/Kiwi/Classes/Config/KWSuiteConfigurationBase.m
+Example/Pods/Aspects/Aspects.h
+Example/Pods/Aspects/Aspects.m
+Example/Pods/Aspects/LICENSE
+Example/Pods/Aspects/README.md
+Example/Pods/Target Support Files/Aspects/Aspects-Info.plist
+Example/Pods/Target Support Files/Aspects/Aspects-dummy.m
+Example/Pods/Target Support Files/Aspects/Aspects-prefix.pch
+Example/Pods/Target Support Files/Aspects/Aspects-umbrella.h
+Example/Pods/Target Support Files/Aspects/Aspects.debug.xcconfig
+Example/Pods/Target Support Files/Aspects/Aspects.modulemap
+Example/Pods/Target Support Files/Aspects/Aspects.release.xcconfig

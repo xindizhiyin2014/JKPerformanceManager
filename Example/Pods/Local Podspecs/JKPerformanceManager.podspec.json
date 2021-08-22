@@ -18,5 +18,10 @@
   "platforms": {
     "ios": "9.0"
   },
-  "source_files": "JKPerformanceManager/Classes/**/*"
+  "source_files": "JKPerformanceManager/Classes/**/*",
+  "dependencies": {
+    "Aspects": [
+
+    ]
+  }
 }

@@ -1,5 +1,7 @@
 PODS:
-  - JKPerformanceManager (0.1.0)
+  - Aspects (1.4.1)
+  - JKPerformanceManager (0.1.0):
+    - Aspects
   - Kiwi (3.0.0)
 
 DEPENDENCIES:
@@ -8,6 +10,7 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
+    - Aspects
     - Kiwi
 
 EXTERNAL SOURCES:
@@ -15,7 +18,8 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  JKPerformanceManager: 221d7c22c38ed777dd43ad8d6810457cbccd862d
+  Aspects: 7595ba96a6727a58ebcbfc954497fc5d2fdde546
+  JKPerformanceManager: e8c22cacbda9bf83b238ffdc478b88cbb266388a
   Kiwi: fbeafef0f00e4d8f7dcb3420a4930afe70af77f7
 
 PODFILE CHECKSUM: 0c8901a06c5e83035e3fc863811b39ffd292ed56
