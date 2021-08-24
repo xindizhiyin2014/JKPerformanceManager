@@ -225,7 +225,7 @@ static NSString * const kAppFirstInstallKey =  @"kAppFirstInstallKey_JKPerforman
 {
     if ([JKPerformanceManager sharedInstance].trackHelper
         && [[JKPerformanceManager sharedInstance].trackHelper respondsToSelector:@selector(trackPerformance:vc:)]) {
-        [[JKPerformanceManager sharedInstance].trackHelper trackPerformance:performanceModel vc:nil];
+        [[JKPerformanceManager sharedInstance].trackHelper trackPerformance:performanceModel vc:vc];
     }
 }
 
