@@ -33,6 +33,10 @@ static const void *performance_tableView_target_has_hookedKey = &performance_tab
     if ([delegate_ClassName hasPrefix:@"UI"]) {
         return;
     }
+    // 过滤掉系统私有类
+    if ([delegate_ClassName hasPrefix:@"_"]) {
+        return;
+    }
     // 忽略掉黑名单
     if ([JKPerformanceManager isInBlackList:delegate_ClassName]) {
         return;
@@ -96,6 +100,10 @@ static const void *performance_tableView_target_has_hookedKey = &performance_tab
     if ([delegate_ClassName hasPrefix:@"UI"]) {
         return;
     }
+    // 过滤掉系统私有类
+    if ([delegate_ClassName hasPrefix:@"_"]) {
+        return;
+    }
     // 忽略掉黑名单
     if ([JKPerformanceManager isInBlackList:delegate_ClassName]) {
         return;
@@ -136,6 +144,10 @@ static const void *performance_tableView_target_has_hookedKey = &performance_tab
     }
     // 过滤掉系统视图
     if ([delegate_ClassName hasPrefix:@"UI"]) {
+        return;
+    }
+    // 过滤掉系统私有类
+    if ([delegate_ClassName hasPrefix:@"_"]) {
         return;
     }
     // 忽略掉黑名单

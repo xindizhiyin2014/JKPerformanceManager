@@ -36,6 +36,10 @@ static const void *performance_hasLayoutImmediatelyKey = &performance_hasLayoutI
     if ([delegate_ClassName hasPrefix:@"UI"]) {
         return;
     }
+    // 过滤掉系统私有类
+    if ([delegate_ClassName hasPrefix:@"_"]) {
+        return;
+    }
     // 忽略掉黑名单，避免干扰
     if ([JKPerformanceManager isInBlackList:delegate_ClassName]) {
         return;
@@ -105,8 +109,12 @@ static const void *performance_hasLayoutImmediatelyKey = &performance_hasLayoutI
         }
         return;
     }
-    // 忽略掉黑名单
     NSString *deletate_ClassName = NSStringFromClass([self.delegate class]);
+    // 过滤掉系统私有类
+    if ([delegate_ClassName hasPrefix:@"_"]) {
+        return;
+    }
+    // 忽略掉黑名单
     if ([JKPerformanceManager isInBlackList:deletate_ClassName]) {
         return;
     }

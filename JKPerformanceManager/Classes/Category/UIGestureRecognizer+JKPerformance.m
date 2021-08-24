@@ -48,6 +48,10 @@ static const void *track_gesture_target_has_hookedKey = &track_gesture_target_ha
          && ![target_ClassName isEqualToString:@"UIView"])) {
         return;
     }
+    // 过滤掉系统私有类
+    if ([target_ClassName hasPrefix:@"_"]) {
+        return;
+    }
     // 忽略掉黑名单，避免干扰
     if ([JKPerformanceManager isInBlackList:target_ClassName]) {
         return;

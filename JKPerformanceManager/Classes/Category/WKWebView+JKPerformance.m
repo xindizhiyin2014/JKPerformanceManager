@@ -28,6 +28,10 @@ static const void *performance_webView_target_has_hookedKey = &performance_webVi
     if ([delegate_ClassName hasPrefix:@"UI"]) {
         return;
     }
+    // 过滤掉系统私有类
+    if ([delegate_ClassName hasPrefix:@"_"]) {
+        return;
+    }
     // 过滤掉黑名单
     if ([JKPerformanceManager isInBlackList:delegate_ClassName]) {
         return;

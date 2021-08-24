@@ -19,7 +19,8 @@ static const void *interactive_pagePerformanceModelKey = &interactive_pagePerfor
 {
     NSString *className = NSStringFromClass([self class]);
     //过滤掉系统类
-    if ([className hasPrefix:@"UI"]) {
+    if ([className hasPrefix:@"UI"]
+        || [className hasPrefix:@"_"]) {
         return [self performance_init];
     }
     // 过滤掉黑名单
@@ -38,7 +39,8 @@ static const void *interactive_pagePerformanceModelKey = &interactive_pagePerfor
 {
     NSString *className = NSStringFromClass([self class]);
     //过滤掉系统类
-    if ([className hasPrefix:@"UI"]) {
+    if ([className hasPrefix:@"UI"]
+        || [className hasPrefix:@"_"]) {
         [self performance_viewDidLoad];
         return;
     }
@@ -62,6 +64,16 @@ static const void *interactive_pagePerformanceModelKey = &interactive_pagePerfor
 - (void)performance_viewDidAppear:(BOOL)animated
 {
     [self performance_viewDidAppear:animated];
+    NSString *className = NSStringFromClass([self class]);
+    //过滤掉系统类
+    if ([className hasPrefix:@"UI"]
+        || [className hasPrefix:@"_"]) {
+        return;
+    }
+    // 过滤掉黑名单
+    if ([JKPerformanceManager isInBlackList:className]) {
+        return;
+    }
     NSTimeInterval end_time = [[NSDate date] timeIntervalSince1970]  * 1000;
     self.interactive_pagePerformanceModel.end_time = end_time;
     if (self.interactive_pagePerformanceModel.start_time > 0) {// 避免重复打点

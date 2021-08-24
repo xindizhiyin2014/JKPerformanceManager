@@ -34,6 +34,10 @@ static const void *performance_collectionView_target_has_hookedKey = &performanc
     if ([delegate_ClassName hasPrefix:@"UI"]) {
         return;
     }
+    // 过滤掉系统私有类
+    if ([delegate_ClassName hasPrefix:@"_"]) {
+        return;
+    }
     // 忽略掉黑名单
     if ([JKPerformanceManager isInBlackList:delegate_ClassName]) {
         return;
@@ -103,6 +107,10 @@ static const void *performance_collectionView_target_has_hookedKey = &performanc
     if ([delegate_ClassName hasPrefix:@"UI"]) {
         return;
     }
+    // 过滤掉系统私有类
+    if ([delegate_ClassName hasPrefix:@"_"]) {
+        return;
+    }
     // 忽略掉黑名单
     if ([JKPerformanceManager isInBlackList:delegate_ClassName]) {
         return;
@@ -141,6 +149,10 @@ static const void *performance_collectionView_target_has_hookedKey = &performanc
     NSString *delegate_ClassName = NSStringFromClass([delegate class]);
     // 过滤掉系统视图
     if ([delegate_ClassName hasPrefix:@"UI"]) {
+        return;
+    }
+    // 过滤掉系统私有类
+    if ([delegate_ClassName hasPrefix:@"_"]) {
         return;
     }
     // 忽略掉黑名单

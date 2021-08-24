@@ -21,10 +21,14 @@
     if ([[JKPerformanceManager helper] respondsToSelector:@selector(track_control:sendAction:to:forEvent:)]) {
         [[JKPerformanceManager helper] track_control:self sendAction:action to:target forEvent:event];
     }
-// 正常执行事件
+    // 正常执行事件
     [self performance_sendAction:action to:target forEvent:event];
     // 忽略掉黑名单，避免干扰
     NSString *target_ClassName = NSStringFromClass([target class]);
+    // 过滤掉系统私有类
+    if ([target_ClassName hasPrefix:@"_"]) {
+        return;
+    }
     if ([JKPerformanceManager isInBlackList:target_ClassName]) {
         return;
     }
