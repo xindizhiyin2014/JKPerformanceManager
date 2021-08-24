@@ -91,12 +91,9 @@ static const void *track_gesture_target_has_hookedKey = &track_gesture_target_ha
                 operatePerformanceModel.element_type = JKOperateTypeLongPress;
             }
             operatePerformanceModel.widget = [NSString stringWithFormat:@"%@+%@",target_ClassName,selectorStr];
-            if (!self.view.track_containerVC) {
-                UIViewController *track_containerVC = [JKPerformanceManager topContainerViewControllerOfResponder:self.view];
-                self.view.track_containerVC = track_containerVC;
-            }
-            operatePerformanceModel.page = NSStringFromClass(self.view.track_containerVC.class)?:NSStringFromClass([UIViewController class]);
-            [JKPerformanceManager trackPerformance:operatePerformanceModel vc:self.self.view.track_containerVC];
+            UIViewController *track_containerVC = [self performance_track_containerVC];
+            operatePerformanceModel.page = NSStringFromClass(track_containerVC.class)?:NSStringFromClass([UIViewController class]);
+            [JKPerformanceManager trackPerformance:operatePerformanceModel vc:track_containerVC];
         }
         
     } error:&error1];
@@ -129,4 +126,16 @@ static const void *track_gesture_target_has_hookedKey = &track_gesture_target_ha
     }
     return NO;
 }
+
+- (__kindof UIViewController *)performance_track_containerVC
+{
+    UIViewController *track_containerVC = self.view.track_containerVC;
+    if (!track_containerVC) {
+        track_containerVC = [JKPerformanceManager topContainerViewControllerOfResponder:self.view];
+        self.view.track_containerVC = track_containerVC;
+    }
+    return track_containerVC;
+    
+}
+
 @end

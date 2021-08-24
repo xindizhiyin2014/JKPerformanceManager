@@ -47,18 +47,7 @@ static const void *performance_webView_target_has_hookedKey = &performance_webVi
     }
     NSError *error = nil;
     [(NSObject *)navigationDelegate aspect_hookSelector:@selector(webView:didFinishNavigation:) withOptions:AspectPositionAfter usingBlock:^(id<AspectInfo> data){
-        if (!self.track_containerVC) {
-            UIViewController *track_containerVC = [JKPerformanceManager topContainerViewControllerOfResponder:self];
-            self.track_containerVC = track_containerVC;
-        }
-        // 避免重复打点
-        if (self.track_containerVC.firstScreen_pagePerformanceModel.start_time > 0) {
-            NSTimeInterval end_time = [[NSDate date] timeIntervalSince1970]  * 1000;
-            self.track_containerVC.firstScreen_pagePerformanceModel.end_time = end_time;
-            [JKPerformanceManager trackPerformance:self.track_containerVC.firstScreen_pagePerformanceModel vc:self.track_containerVC];
-            self.track_containerVC.firstScreen_pagePerformanceModel.start_time = 0;
-        }
-
+        [self performance_track_firstScreen];
     } error:&error];
     
     if (error) {
@@ -68,6 +57,21 @@ static const void *performance_webView_target_has_hookedKey = &performance_webVi
 #endif
     } else {
         objc_setAssociatedObject(navigationDelegate, performance_webView_target_has_hookedKey, @(YES), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    }
+}
+
+- (void)performance_track_firstScreen
+{
+    if (!self.track_containerVC) {
+        UIViewController *track_containerVC = [JKPerformanceManager topContainerViewControllerOfResponder:self];
+        self.track_containerVC = track_containerVC;
+    }
+    // 避免重复打点
+    if (self.track_containerVC.firstScreen_pagePerformanceModel.start_time > 0) {
+        NSTimeInterval end_time = [[NSDate date] timeIntervalSince1970]  * 1000;
+        self.track_containerVC.firstScreen_pagePerformanceModel.end_time = end_time;
+        [JKPerformanceManager trackPerformance:self.track_containerVC.firstScreen_pagePerformanceModel vc:self.track_containerVC];
+        self.track_containerVC.firstScreen_pagePerformanceModel.start_time = 0;
     }
 }
 @end

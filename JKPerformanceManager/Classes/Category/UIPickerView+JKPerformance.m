@@ -77,12 +77,9 @@ static const void *performance_hasLayoutImmediatelyKey = &performance_hasLayoutI
         operatePerformanceModel.end_time = [[NSDate date] timeIntervalSince1970]  * 1000;
         operatePerformanceModel.element_type = JKOperateTypeItemClick;
         operatePerformanceModel.widget = [NSString stringWithFormat:@"%@+%@",delegate_ClassName,NSStringFromSelector(@selector(pickerView:didSelectRow:inComponent:))];
-        if (!self.track_containerVC) {
-            UIViewController *track_containerVC = [JKPerformanceManager topContainerViewControllerOfResponder:self];
-            self.track_containerVC = track_containerVC;
-        }
-        operatePerformanceModel.page = NSStringFromClass(self.track_containerVC.class)?:NSStringFromClass([UIViewController class]);
-        [JKPerformanceManager trackPerformance:operatePerformanceModel vc:self.track_containerVC];
+        UIViewController *track_containerVC = [self performance_track_containerVC];
+        operatePerformanceModel.page = NSStringFromClass(track_containerVC.class)?:NSStringFromClass([UIViewController class]);
+        [JKPerformanceManager trackPerformance:operatePerformanceModel vc:track_containerVC];
         
     } error:&error1];
     if (error1) {
@@ -176,5 +173,15 @@ static const void *performance_hasLayoutImmediatelyKey = &performance_hasLayoutI
             self.track_containerVC.firstScreen_pagePerformanceModel.start_time = 0;
         }
     }
+}
+
+- (__kindof UIViewController *)performance_track_containerVC
+{
+    UIViewController *track_containerVC = self.track_containerVC;
+    if (!track_containerVC) {
+        track_containerVC = [JKPerformanceManager topContainerViewControllerOfResponder:self];
+        self.track_containerVC = track_containerVC;
+    }
+    return track_containerVC;
 }
 @end
