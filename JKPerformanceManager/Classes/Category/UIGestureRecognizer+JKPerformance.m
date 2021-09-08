@@ -13,7 +13,7 @@
 #import <objc/runtime.h>
 #import <Aspects/Aspects.h>
 #import "UIView+JKPerformance.h"
-
+#import "JKPerformanceMacro.h"
 
 static const void *track_gesture_target_has_hookedKey = &track_gesture_target_has_hookedKey;
 
@@ -71,9 +71,11 @@ static const void *track_gesture_target_has_hookedKey = &track_gesture_target_ha
         return;
     }
     NSError *error1 = nil;
+    __weak typeof(target) weakTarget = target;
     [(NSObject *)target aspect_hookSelector:selector withOptions:AspectPositionInstead usingBlock:^(id<AspectInfo> data){
+        @strongify(target);
         if ([[JKPerformanceManager helper] respondsToSelector:@selector(track_gesture:target:selector:)]) {
-            [[JKPerformanceManager helper] track_gesture:self target:target selector:selector];
+            [[JKPerformanceManager helper] track_gesture:self target:weakTarget selector:selector];
         }
         
         JKOperationPerformanceModel *operatePerformanceModel = [JKOperationPerformanceModel new];
