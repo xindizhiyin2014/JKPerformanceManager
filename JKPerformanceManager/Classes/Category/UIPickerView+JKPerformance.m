@@ -61,8 +61,8 @@ static const void *performance_hasLayoutImmediatelyKey = &performance_hasLayoutI
         
         if ([[JKPerformanceManager helper] respondsToSelector:@selector(track_pickerView:didSelectRow:inComponent:)]) {
             NSArray *arguments = [data arguments];
-            if (arguments.count == 2) {
-                NSInteger row = [arguments.firstObject integerValue];
+            if (arguments.count == 3) {
+                NSInteger row = [arguments[1] integerValue];
                 NSInteger component = [arguments.lastObject intValue];
                 [[JKPerformanceManager helper] track_pickerView:self didSelectRow:row inComponent:component];
             } else {
